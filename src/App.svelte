@@ -5,7 +5,7 @@
   getMedias();
   async function getMedias() {
     console.log("H");
-    let call = await fetch("/getMedias", {
+    let call = await fetch("http://localhost:8000/getMedias", {
       method: "POST"
     });
     console.log("DONE");
@@ -60,6 +60,9 @@
       max-width: none;
     }
   }
+  #guide {
+    text-align: left;
+  }
 </style>
 
 {#if page == 'watch'}
@@ -67,6 +70,25 @@
     <h1>Movie time</h1>
     <input type="text" readonly bind:value={path} bind:this={copyText} />
     <button type="button" on:click={copyTheText}>Copy</button>
+    <div id="guide">
+      <h2>How to open stream</h2>
+      <h3>Windows</h3>
+      <ul>
+        <li>Open vlc player</li>
+        <li>Click on media up in the left corner</li>
+        <li>Click on open network stream</li>
+        <li>Paste url you copied from website</li>
+        <li>Click enter/play button</li>
+      </ul>
+      <h3>Mobile</h3>
+      <ul>
+        <li>Start app</li>
+        <li>Navigate to stream</li>
+        <li>Paste url</li>
+        <li>Watch</li>
+      </ul>
+    </div>
+
   </main>
 {:else}
   <main>
