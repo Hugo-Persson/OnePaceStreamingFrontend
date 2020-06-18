@@ -1,27 +1,13 @@
 <script>
   export let name;
 
-  let medias = [];
-  getMedias();
-  async function getMedias() {
-    console.log("H");
-    let call = await fetch("http://localhost:8000/getMedias", {
-      method: "POST"
-    });
-    console.log("DONE");
-    call = await call.json();
-    console.log(call);
-    if (call.error) {
-    } else {
-      medias = call.medias;
-    }
-  }
+  import PickMedia from "./PickMedia.svelte";
+  import StreamSite from "./StreamSite.svelte";
 
   let page = "";
 
   let path = "";
 
-  let copyText;
   onhashchange = directPage;
   directPage();
   function directPage() {
@@ -29,14 +15,6 @@
     page = dataArray[1];
     path = "http://" + location.host + "/stream/" + dataArray[2];
     console.log(path);
-  }
-  function copyTheText() {
-    /* Select the text field */
-    copyText.select();
-    copyText.setSelectionRange(0, 99999); /*For mobile devices*/
-
-    /* Copy the text inside the text field */
-    document.execCommand("copy");
   }
 </script>
 
@@ -66,41 +44,7 @@
 </style>
 
 {#if page == 'watch'}
-  <main>
-    <h1>Movie time</h1>
-    <input type="text" readonly bind:value={path} bind:this={copyText} />
-    <button type="button" on:click={copyTheText}>Copy</button>
-    <div id="guide">
-      <h2>How to open stream</h2>
-      <h3>Windows</h3>
-      <ul>
-        <li>Open vlc player</li>
-        <li>Click on media up in the left corner</li>
-        <li>Click on open network stream</li>
-        <li>Paste url you copied from website</li>
-        <li>Click enter/play button</li>
-      </ul>
-      <h3>Mobile</h3>
-      <ul>
-        <li>Start app</li>
-        <li>Navigate to stream</li>
-        <li>Paste url</li>
-        <li>Watch</li>
-      </ul>
-    </div>
-
-  </main>
+  <StreamSite {path} />
 {:else}
-  <main>
-    <h1>Select media to stream</h1>
-    {#each medias as media, i}
-      <div class="media">
-        {media.name}
-        <br />
-        <a href="#&watch&{i}">Watch</a>
-
-        <br />
-      </div>
-    {/each}
-  </main>
+  <PickMedia />
 {/if}
