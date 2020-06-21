@@ -1,5 +1,6 @@
 <script>
   export let name;
+  import { slide, fade } from "svelte/transition";
 
   import PickMedia from "./PickMedia.svelte";
   import StreamSite from "./StreamSite.svelte";
@@ -7,13 +8,14 @@
   let page = "";
 
   let path = "";
-
+  let mediaName;
   onhashchange = directPage;
   directPage();
   function directPage() {
     const dataArray = location.hash.split("&");
     page = dataArray[1];
     path = "http://" + location.host + "/stream/" + dataArray[2];
+    mediaName = dataArray[3];
     console.log(path);
   }
 </script>
@@ -44,7 +46,7 @@
 </style>
 
 {#if page == 'watch'}
-  <StreamSite {path} />
+  <StreamSite {path} {mediaName} />
 {:else}
   <PickMedia />
 {/if}

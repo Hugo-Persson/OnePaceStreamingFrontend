@@ -1,4 +1,6 @@
 <script>
+  import WatchButton from "./WatchButton.svelte";
+  import { slide, fade } from "svelte/transition";
   let medias = [];
   let showMedias = [];
   getMedias();
@@ -39,7 +41,7 @@
     overflow-y: scroll;
     overflow-x: hidden;
 
-    background-color: #222327;
+    background-color: #212121;
     color: white;
   }
   #navbar {
@@ -47,13 +49,13 @@
     text-align: center;
     display: grid;
     grid-template-columns: 25% 50% 25%;
-    background-color: #35363a;
+    background-color: #2e2e2e;
   }
   tr:nth-child(even) {
-    background-color: #35363a;
+    background-color: #2e2e2e;
   }
   tr:nth-child(odd) {
-    background-color: #222327;
+    background-color: #212121;
   }
   tr {
     padding: 30px;
@@ -86,12 +88,15 @@
   </div>
 
   <div id="media">
+    {#if medias.length === 0}
+      <h2>Loading...</h2>
+    {/if}
     <table>
       {#each showMedias as media, i}
-        <tr>
+        <tr >
           <td>{media.name}</td>
           <td class="link">
-            <a class="btn btn-primary text-white" href="#&watch&{i}">Watch</a>
+            <WatchButton {i} {media} />
           </td>
         </tr>
       {/each}

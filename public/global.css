@@ -7,6 +7,8 @@ body {
 
 body {
 	color: #333;
+	background-color: #212121;
+	;
 	margin: 0;
 
 	box-sizing: border-box;
@@ -14,7 +16,7 @@ body {
 }
 
 a {
-	color: rgb(0, 100, 200);
+	color: rgb(122, 204, 241);
 	text-decoration: none;
 }
 
