@@ -88,7 +88,7 @@
     {/if}
     <table>
       {#each showMedias as media, i}
-        <tr>
+        <tr transition:fade>
           <td>{media.name}</td>
           <td class="link">
             <WatchButton {i} {media} />

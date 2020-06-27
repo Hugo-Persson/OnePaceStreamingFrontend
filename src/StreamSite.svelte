@@ -44,21 +44,23 @@
   }
   #navigation {
     display: grid;
-    grid-template-columns: 20% 60% 20%;
+    grid-template-columns: 10% 15% 60% 15%;
     align-items: center;
   }
   #navigation div {
     text-align: left;
   }
-  #navigation div:first-of-type {
-    text-align: right;
+  #prev {
+    text-align: right !important;
   }
 </style>
 
 <main>
   <div id="top">
+
     <div id="navigation">
-      <div>
+      <a href="#">Return to media picker</a>
+      <div id="prev">
         <button on:click={previousEpisode}>Previous</button>
       </div>
 
