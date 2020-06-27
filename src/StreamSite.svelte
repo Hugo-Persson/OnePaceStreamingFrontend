@@ -1,6 +1,9 @@
 <script>
   export let mediaName;
   export let path;
+  export let index;
+
+  import { medias } from "./medias.js";
   function copyTheText() {
     /* Select the text field */
     copyText.select();
@@ -11,8 +14,21 @@
   }
   let copyText;
 
-  function nextEpisode() {}
-  function previousEpisode() {}
+  function nextEpisode() {
+    //TODO: Account for last episode
+    index = new Number(index);
+    const newIndex = index + 1;
+    console.log("INDEX", index + 1);
+    const media = $medias[newIndex];
+    const newPath = `#&watch&${newIndex}&${media.name}`;
+    location.hash = newPath;
+  }
+  function previousEpisode() {
+    index = new Number(index);
+    const media = $medias[index - 1];
+    const newPath = `#&watch&${index - 1}&${media.name}`;
+    location.hash = newPath;
+  }
 </script>
 
 <style>
@@ -43,12 +59,12 @@
   <div id="top">
     <div id="navigation">
       <div>
-        <button>Previous</button>
+        <button on:click={previousEpisode}>Previous</button>
       </div>
 
       <h1>{mediaName.replace(new RegExp('%20', 'g'), ' ')}</h1>
       <div>
-        <button>Next</button>
+        <button on:click={nextEpisode}>Next</button>
       </div>
 
     </div>

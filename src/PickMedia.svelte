@@ -1,32 +1,27 @@
 <script>
   import WatchButton from "./WatchButton.svelte";
   import { slide, fade } from "svelte/transition";
-  let medias = [];
-  let showMedias = [];
-  getMedias();
-  async function getMedias() {
-    console.log("H");
-    let call = await fetch("http://localhost:8000/getMedias", {
-      method: "POST"
-    });
-    console.log("DONE");
-    call = await call.json();
-    console.log(call);
-    if (call.error) {
-    } else {
-      medias = call.medias;
-      showMedias = medias;
-    }
-  }
+  import { medias } from "./medias.js";
+
+  let mediaVal = [];
+  let showMedias = mediaVal;
 
   let searchQuery = "";
+
+  medias.subscribe(val => {
+    mediaVal = val;
+    showMedias = val;
+    console.log("VALUY", val);
+  });
+
   function filter(e) {
     e.preventDefault();
 
-    showMedias = medias.filter(value => {
+    showMedias = mediaVal.filter(value => {
       return value.name.toLowerCase().indexOf(searchQuery.toLowerCase()) !== -1;
     });
   }
+  console.log("meeee", $medias);
 </script>
 
 <style>
@@ -88,12 +83,12 @@
   </div>
 
   <div id="media">
-    {#if medias.length === 0}
+    {#if mediaVal.length === 0}
       <h2>Loading...</h2>
     {/if}
     <table>
       {#each showMedias as media, i}
-        <tr >
+        <tr>
           <td>{media.name}</td>
           <td class="link">
             <WatchButton {i} {media} />
