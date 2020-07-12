@@ -44,7 +44,7 @@
   }
   #navigation {
     display: grid;
-    grid-template-columns: 10% 15% 60% 15%;
+    grid-template-columns: 10% 15% 50% 25%;
     align-items: center;
   }
   #navigation div {
